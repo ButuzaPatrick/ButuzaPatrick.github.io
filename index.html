@@ -7,150 +7,21 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="wrapper">
-        <h1 id="fibonacci-from-o2n-to-ologn">Fibonacci: From O(<span class="math inline">2<sup><em>n</em></sup></span>) to O(<span class="math inline"><em>l</em><em>o</em><em>g</em>(<em>n</em>)</span>)</h1>
-
-        <div class="block">
-            <h2 id="recursive">Recursive</h2>
-            <p>Recursion is the process of a function calling itself, creating a ladder of functions that seek to reach the base case and then return values all the way up back to the original parent function.</p>
-            <p>Thus, since we know that the pattern for the Fibonacci sequence is as follows:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502030512).png" alt="Fibonacci Sequence" /><figcaption>Fibonacci Sequence</figcaption>
-            </figure>
-            <p>We can simply formulate the following function:</p>
-            <figure>
-            <img src="images/fibonacci/fibonacci_recursive.png" alt="Fibonacci Recursive Code" /><figcaption>Recursive Algorithm</figcaption>
-            </figure>
-            <p>This is known as a <strong>top-down</strong> approach to solving this problem.</p>
-            <p>Instinctively, when I learnt about recursion for the first time, I wrongly assumed that it would always be the most optimal solution for any problem - given its elegant result. And so I fell for that temptation once again when attempting to come up with a solution to this problem. Jumping to my first thought doesn’t always work!</p>
-            <p>So, I analysed the algorithm:</p>
-            <figure>
-            <img src="images/fibonacci/No%20name.png" alt="Time Complexity Analysis" /><figcaption>Time Complexity Analysis</figcaption>
-            </figure>
-            <p>Though the code appears to be simple, it actually has an exponential time complexity! Meaning that fibonacci_recursive(100) will perform 2<sup>100</sup> operations before reaching completion. At 1 billion operations a second, that would still take 4 × 10<sup>13</sup> years to finish - longer than the age of the universe.</p>
-            <p>Clearly, recursion is not the way forward.</p>
+    <a href="pages/fibonacci.html" style="text-decoration: none; color: inherit;">
+        <div style="
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin: 2rem auto;
+            max-width: 600px;
+            background-color: #fff;
+        " onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 6px 20px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.05)'">
+            <h2>Fibonacci: From O(<span class="math inline">2<sup><em>n</em></sup></span>) to O(<span class="math inline"><em>l</em><em>o</em><em>g</em>(<em>n</em>)</span>)</h2>
+            <p>See how I went from waiting 2.5 quadrillion years to an <em>almost instantaneous</em> Fibonacci algorithm</p>
         </div>
-
-
-        <div class="block">
-            <h2 id="recursion-memorisation">RECURSION + MEMORISATION</h2>
-            <p>When we compute Fibonacci recursively, we do as follows:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502035123).png" alt="Recursion Tree" /><figcaption>Recursion Tree</figcaption>
-            </figure>
-            <p>However, in the tree we can see that we repeat many of the calculations:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502035222).png" alt="Recursion Tree Highlighting Repeats" /><figcaption>Recursion Tree Highlighting Repeats</figcaption>
-            </figure>
-            <p>So I thought, why not create a dictionary that can store the numbers that have already been calculated, and rather than continuing down that branch, it simply returns at that point.</p>
-            <p>The code is as follows:</p>
-            <figure>
-            <img src="images/fibonacci/fibonacci_recursive_memorisation.png" alt="Recursion with Memorisation Algorithm" /><figcaption>Recursion with Memorisation Algorithm</figcaption>
-            </figure>
-            <p>This is a much better improvement in terms of time complexity:</p>
-            <figure>
-            <img src="images/fibonacci/on.png" alt="Time Complexity Analysis" /><figcaption>Time Complexity Analysis</figcaption>
-            </figure>
-            <p>This is a crazy improvement! The theoretical max (if you have enough patience to wait 80 years for the program to run) for my first recursive algorithm is as follows:</p>
-            <figure>
-            <img src="images/fibonacci/61.png" alt="Proof" /><figcaption>Theoretical Max</figcaption>
-            </figure>
-            <p>The maximum possible index we could sensibly calculate is 61.</p>
-            <p>Whereas for the second algorithm, it can technically go exponentially higher. in fact, python lets us go all the way to 999, however, when I try 1000, I encounter a new problem with my recursive method… <strong>stack overflow</strong>.</p>
-            <p>When a program is written in python, variables and functions are allocated to a stack of memory addresses - the working stack. However, the stack isn’t infinite, and since Python has no stack overflow protection, deep recursions can eventually exceed the capacity of the stack and cause the program to crash - which we don’t want.</p>
-            <p>So, I trashed the recursion idea completely and thought of something else.</p>
-        </div>
-
-
-
-        <div class="block">
-            <h2 id="linear">LINEAR</h2>
-            <p>I initially approached the Fibonacci sequence with a <strong>top-down</strong> solution - using the Fibonacci relationship:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502030512).png" alt="Fibonacci Sequence" /><figcaption>Fibonacci Sequence</figcaption>
-            </figure>
-            <p>…to work from <span class="math inline"><em>n</em></span> and go backwards.</p>
-            <p>However, knowing the sequence of the Fibonacci numbers, and knowing the input is the index at which we have to stop in the sequence, why not just work from the bottom-up? My idea was that this would entirely remove the need to recursively call the function. In fact, this solution might be even simpler, since it is just a basic loop! Something that I had overlooked initially, thinking “<em>surely a loop wont work, it is too simple</em>”.</p>
-            <p>And so, my linear approach is as follows:</p>
-            <figure>
-            <img src="images/fibonacci/fibonacci_linear.png" alt="Fibonacci Linear Code" /><figcaption>Linear Algorithm</figcaption>
-            </figure>
-            <p>Now, although it is slightly longer than my previous recursive attempt, it is of the same time complexity.</p>
-            <p>It also has no problem going past 999 now - <strong>woohoo</strong>! And no stack overflow errors</p>
-            <p>Python lets us go all the way to 20576, before throwing an “<em>exceeds the limit</em>” error. So lets calculate the actual theoretical limit:</p>
-            <figure>
-            <img src="images/fibonacci/n.png" alt="Proof" /><figcaption>Theoretical Max</figcaption>
-            </figure>
-            <p>In an average lifetime, we can now calculate the <span class="math inline">2.5 × 10<sup>18</sup><sup><em>t</em><em>h</em></sup></span> number in the Fibonacci sequence which is quite an improvement from 61 at the start.</p>
-        </div>
-
-
-        <div class="block">
-            <h2 id="even-faster---logorithmic">EVEN FASTER - LOGORITHMIC</h2>
-            <p>Up until now, I have been constantly trying to use the Fibonacci pattern to determine the next number - working out <span class="math inline"><em>F</em><sub><em>n</em> − 1</sub></span> and <span class="math inline"><em>F</em><sub><em>n</em> − 2</sub></span> to find <span class="math inline"><em>F</em><sub><em>n</em></sub></span>. But what if there was a way to find some general formula for the <span class="math inline"><em>n</em><sup><em>t</em><em>h</em></sup></span> term of the sequence?</p>
-            <p>And so, I took a deep dive into linear algebra. Namely:</p>
-            <ul>
-            <li>Eigenvalues and eigenvectors</li>
-            <li>Matrices</li>
-            <li>Dynamic linear models</li>
-            </ul>
-            <p>Firstly, we begin with the Fibonacci sequence:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502030512).png" alt="Working Out" />
-            </figure>
-            <p>Then we form another equation that we know is true with respect to the Fibonacci sequence:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502030707).png" alt="Working Out" />
-            </figure>
-            <p>Then we write these linear equations in matrix notation:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502030839).png" alt="Working Out" />
-            </figure>
-            <p>Given the dynamic linear relationship:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502031301).png" alt="Working Out" />
-            </figure>
-            <p>We then solve for the eigenvalues:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502031654).png" alt="Working Out" />
-            </figure>
-            <p>Now we find the corresponding eigenvectors:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502032027).png" alt="Working Out" />
-            </figure>
-            <p>Rationalising this, we get:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502032318).png" alt="Working Out" />
-            </figure>
-            <p>Remembering the dynamic linear model equation we derived, we write as follows:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502032637).png" alt="Working Out" />
-            </figure>
-            <p>And so we end up with the following general equation:</p>
-            <figure>
-            <img src="images/fibonacci/Project%20(20250502033036).png" alt="Working Out" />
-            </figure>
-            <p>And thus, we have an equation that we can plug k-2 into, to find the kth term!</p>
-            <p>However, though it is a formula that we are substituting into, it is not O(1) - because we are doing lots of matrix exponentiation. Via different methods (fast exponentiation or fast doubling) we can get the formula to be 100% accurate in O(log(n)) time.</p>
-            <p>And so, in a lifetime we can calculate the following number of nth terms:</p>
-            <figure>
-            <img src="images/fibonacci/No%20name%20(1).png" alt="Proof" /><figcaption>Theoretical Max</figcaption>
-            </figure>
-            <p>With the final method, we can calculate <span class="math inline">2<sup>2.5 × 10<sup>18</sup></sup></span> number in the Fibonacci sequence.</p>
-            <p>I think that is where I will stop :)</p>
-        </div>
-
-
-
-
-
-        <div class="block">
-            <h3 id="references">REFERENCES:</h3>
-            <p>Check out <a href="https://medium.com/@andrew.chamberlain/the-linear-algebra-view-of-the-fibonacci-sequence-4e81f78935a3">Andrew Chamberlain’s</a> explaination of the O(<span class="math inline"><em>l</em><em>o</em><em>g</em>(<em>n</em>)</span>) solution.</p>
-            
-        </div>
-        
-    </div>
+    </a>
 
 </body>
 </html>
